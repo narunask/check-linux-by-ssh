@@ -156,7 +156,10 @@ if __name__ == '__main__':
     if opts.swap :
         d_swap = {'swap_used':swap_used, 'swap_free':swap_free}
         for (k,v) in d_swap.iteritems():
-            perfdata += ' %s=%s%%;;;0%%;100%%' % (k, int(100 * float(v)/swap_total))
+            try:
+                perfdata += ' %s=%s%%;;;0%%;100%%' % (k, int(100 * float(v)/swap_total))
+            except ZeroDivisionError:
+                perfdata += ' %s=%s%%;;;0%%;100%%' % (k, int(100 * float(v)/1))
     
     
     # Add measurement if required (actually no check supported) + total
